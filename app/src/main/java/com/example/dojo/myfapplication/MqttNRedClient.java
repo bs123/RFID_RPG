@@ -1,5 +1,9 @@
 package com.example.dojo.myfapplication;
 
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -50,6 +54,9 @@ import java.sql.Timestamp;
  */
 public class MqttNRedClient implements MqttCallback  {
 
+    private static Context ctx;
+
+    private static final String TAG = MqttNRedClient.class.toString();
 
     /**
      * The main entry point of the sample.
@@ -57,6 +64,10 @@ public class MqttNRedClient implements MqttCallback  {
      * This method handles parsing of the arguments specified on the
      * command-line before performing the specified action.
      */
+
+    public void setContext(Context context){
+        ctx = context;
+    }
     public static void main(String[] args) {
 
         // Default settings:
@@ -159,7 +170,7 @@ public class MqttNRedClient implements MqttCallback  {
 
             // Perform the requested action
             if (action.equals("publish")) {
-                sampleClient.publish(topic,qos,message.getBytes());
+                sampleClient.publish(topic, qos, message.getBytes());
             } else if (action.equals("subscribe")) {
                 sampleClient.subscribe(topic,qos);
             }
@@ -225,8 +236,8 @@ public class MqttNRedClient implements MqttCallback  {
             client.setCallback(this);
 
         } catch (MqttException e) {
-            e.printStackTrace();
-            log("Unable to set up client: "+e.toString());
+
+            Log.e(TAG, "Exception while subscribe", e);
             System.exit(1);
         }
     }
@@ -271,10 +282,11 @@ public class MqttNRedClient implements MqttCallback  {
      * @param qos the maximum quality of service to receive messages at for this subscription
      * @throws MqttException
      */
-    public void subscribe(String topicName, int qos) throws MqttException {
+    public void subscribe(String topicName, int qos)  {
 
         // Connect to the MQTT server
-        client.connect(conOpt);
+        try {
+            client.connect(conOpt);
         log("Connected to "+brokerUrl+" with client ID "+client.getClientId());
 
         // Subscribe to the requested topic
@@ -287,10 +299,10 @@ public class MqttNRedClient implements MqttCallback  {
 
         // Continue waiting for messages until the Enter is pressed
         log("Press <Enter> to exit");
-        try {
             System.in.read();
-        } catch (IOException e) {
-            //If we can't read we'll just exit
+        } catch (IOException e) { Log.e(TAG,"subscribeInfra IO", e);
+        } catch (MqttException e) {
+            Log.e(TAG,"subscribeInfra MQTT", e);
         }
 
         // Disconnect the client from the server
@@ -319,9 +331,10 @@ public class MqttNRedClient implements MqttCallback  {
         // Called when the connection to the server has been lost.
         // An application may choose to implement reconnection
         // logic at this point. This sample simply exits.
-        log("Connection to " + brokerUrl + " lost!" + cause);
-        System.exit(1);
+        Log.e(TAG,"connectionLost " + ctx,cause);
+        Toast.makeText(ctx,"sdaadsadsadasdsa",Toast.LENGTH_LONG).show();
     }
+
 
     /**
      * @see MqttCallback#deliveryComplete(IMqttDeliveryToken)

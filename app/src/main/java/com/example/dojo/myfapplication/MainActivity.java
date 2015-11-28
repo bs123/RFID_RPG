@@ -1,10 +1,13 @@
 package com.example.dojo.myfapplication;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,17 +17,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
+import java.util.logging.LogRecord;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.toString() ;
     TextView status;
     ArrayList previousPosition;
     ArrayList activatedItems;
     ArrayList idList;
     int test;
     private List<String> uniqueRFidPresentList = new ArrayList<String>();
+    private  String sword = "3000E20020648118011816206C22";
+    private  String hero = "3000E2002064811801200810C10D";
+    boolean found = false;
 
 
     @Override
@@ -33,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        status = (TextView)findViewById(R.id.status);
+
         previousPosition = new ArrayList<String>();
         activatedItems = new ArrayList<String>();
         idList = new ArrayList<String>();
@@ -72,20 +82,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void refresh (View view) {
-        status = (TextView)findViewById(R.id.status);
         // status.setText("" + this.uniqueRFidPresentList.size());
         Iterator<String> iterator = uniqueRFidPresentList.iterator();
+
        StringBuilder sb =  new StringBuilder();
         while (iterator.hasNext())
         {
-           sb.append(iterator.next());
+            String next = iterator.next();
+           sb.append(next);
+           if ( next.contains(hero) && next.contains(sword)   )
+               found= true;
         }
-        status.setText("" + this.uniqueRFidPresentList.size() + " " + sb.toString());
+
+        status.setText("DEBUG : " + this.uniqueRFidPresentList.size() + " " + sb.toString());
     }
 
     private void createClientThread () {
+        try {
         ClientThread clientThread = new ClientThread(this);
-        clientThread.start();
+        clientThread.start();} catch (Exception e){
+                Log.e(TAG, "mainAcTread", e);
+            }
     }
 
 
@@ -110,7 +127,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void handOverRefreshedList(List<String> uniqueRFidPresentList) {
         this.uniqueRFidPresentList = uniqueRFidPresentList;
-
+     /*   final Handler handler = new Handler();
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Looper.prepare();
+                    refresh(null);
+                    // /    status.setText("");
+                    }
+                });
+            }
+        });
+        t.start();*/
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                refresh(null);
+            }
+        });
         System.out.println(" +++++++++++++++++++++++++ update List "  + uniqueRFidPresentList.size());
     }
 }

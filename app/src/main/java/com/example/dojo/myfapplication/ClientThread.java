@@ -1,6 +1,9 @@
 package com.example.dojo.myfapplication;
 
 
+import android.os.Looper;
+import android.util.Log;
+
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
@@ -16,6 +19,7 @@ import java.util.Set;
  * Created by Sai on 28-Nov-15.
  */
 public class ClientThread extends Thread {
+    private static final String TAG = ClientThread.class.toString();
 
 
     private final MainActivity mainActivity;
@@ -40,7 +44,7 @@ public class ClientThread extends Thread {
         }
 
         @Override
-        public void messageArrived(String topic, MqttMessage message) throws MqttException {
+        public void messageArrived(String topic, MqttMessage message)  {
             String msgPayload  = new String(message.getPayload());
             String time = new Timestamp(System.currentTimeMillis()).toString();
 
@@ -52,9 +56,6 @@ public class ClientThread extends Thread {
             if(!syncUniqueRFidPresentList.contains(msgPayload)) {
                 syncUniqueRFidPresentList.add(msgPayload);
             }
-          //  syncUniqueRFidPresent.add(msgPayload);
-           // uniqueRFidPresent.add(message.getPayload().toString());
-      //      mainActivity.handOverRefreshedSet(syncUniqueRFidPresent);
             mainActivity.handOverRefreshedList(syncUniqueRFidPresentList);
         }
     }
@@ -62,13 +63,14 @@ public class ClientThread extends Thread {
 
     // @Override
     public void run() {
-
+        Looper.prepare();
         MyMqttNRedClient mqttClient = null;
         try {
             mqttClient = new MyMqttNRedClient(brokerUrl, clientId, cleanSession, quietMode, userName, password);
+            mqttClient.setContext(mainActivity.getApplicationContext());
             mqttClient.subscribe("zombikiller", 0);
         } catch (MqttException e) {
-            e.printStackTrace();
+            Log.e(TAG,"Exception while subscribe",e);
         }
         //   } catch (MqttException e) {
         //      e.printStackTrace();
