@@ -10,6 +10,12 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 public class ClientThread extends Thread {
 
 
+    private final MainActivity mainActivity;
+
+    public ClientThread(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
+    }
+
     @Override
     public  void run() {
         String brokerUrl="tcp://rfid-rpg.skybus.io:1883";

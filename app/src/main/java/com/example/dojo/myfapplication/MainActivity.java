@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList idList;
     int test;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         previousPosition = new ArrayList<String>();
         activatedItems = new ArrayList<String>();
         idList = new ArrayList<String>();
+
 
 
     /*    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -68,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
         status.setText("Refreshed");
     }
 
-    private void create
+    private void createClientThread () {
+        ClientThread clientThread = new ClientThread(this);
+        clientThread.start();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
