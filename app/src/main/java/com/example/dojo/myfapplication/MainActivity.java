@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         previousPosition = new ArrayList<String>();
         activatedItems = new ArrayList<String>();
         idList = new ArrayList<String>();
-
+        createClientThread ();
 
 
     /*    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

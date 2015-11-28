@@ -15,6 +15,7 @@ public class MqttNRedClientTest {
     String userName="app";
     String password ="app";
 
+
     @Test
     public void testSubscribe() throws MqttException {
 
