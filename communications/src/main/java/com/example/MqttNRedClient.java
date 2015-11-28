@@ -1,8 +1,5 @@
 package com.example;
 
-import java.io.IOException;
-import java.sql.Timestamp;
-
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -10,6 +7,9 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
+
+import java.io.IOException;
+import java.sql.Timestamp;
 
 /*******************************************************************************
  * Copyright (c) 2009, 2014 IBM Corp.

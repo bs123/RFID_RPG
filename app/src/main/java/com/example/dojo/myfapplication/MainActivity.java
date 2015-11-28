@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList activatedItems;
     ArrayList idList;
     int test;
+    private Set<String> syncedUniqueRfidSet;
 
 
     @Override
@@ -67,13 +69,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void refresh (View view) {
         status = (TextView)findViewById(R.id.status);
-        status.setText("Refreshed");
+        status.setText(this.syncedUniqueRfidSet.size());
     }
 
     private void createClientThread () {
         ClientThread clientThread = new ClientThread(this);
         clientThread.start();
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -89,4 +92,10 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public void handOverRefreshedSet(Set<String> syncedUniqueRfidSet) {
+        this.syncedUniqueRfidSet = syncedUniqueRfidSet;
+    }
+
 }
