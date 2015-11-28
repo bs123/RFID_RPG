@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void refresh (View view) {
         status = (TextView)findViewById(R.id.status);
-        status.setText(this.syncedUniqueRfidSet.size());
+        status.setText("" + this.syncedUniqueRfidSet.size());
     }
 
     private void createClientThread () {

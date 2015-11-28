@@ -295,8 +295,8 @@ public class MqttNRedClient implements MqttCallback  {
         }
 
         // Disconnect the client from the server
-        client.disconnect();
-        log("Disconnected");
+    //    client.disconnect();
+      //  log("Disconnected");
     }
 
     /**

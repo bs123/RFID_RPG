@@ -17,7 +17,8 @@ public class ClientThread extends Thread {
 
 
     private final MainActivity mainActivity;
-    String brokerUrl = "tcp://rfid-rpg.skybus.io:1883";
+    //String brokerUrl = "tcp://rfid-rpg.skybus.io:1883";
+    String brokerUrl = "tcp://54.93.174.164:1883";
     String clientId = "app";
     boolean cleanSession = true;
     boolean quietMode = false;
