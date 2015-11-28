@@ -6,8 +6,10 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,6 +27,8 @@ public class ClientThread extends Thread {
     String userName = "app";
     String password = "app";
     MqttNRedClient mqttClient = null;
+    private  List<String> syncUniqueRFidPresentList= Collections.synchronizedList(new ArrayList<String>());
+
 
     public ClientThread(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
@@ -37,23 +41,21 @@ public class ClientThread extends Thread {
 
         @Override
         public void messageArrived(String topic, MqttMessage message) throws MqttException {
+            String msgPayload = message.getPayload().toString();
             String time = new Timestamp(System.currentTimeMillis()).toString();
-            System.out.println("Time:\t" +time +
+            System.out.println("Time:\t" + time +
                     "  Topic:\t" + topic +
-                    "  Message:\t" + new String(message.getPayload()) +
-                    "  QoS:\t" + message.getQos());
-
-            Set<String> uniqueRFidPresent = new HashSet<String>();
-           // Set<String> syncUniqueRFidPresent = Collections.synchronizedSet(uniqueRFidPresent);
+                    "  Message:\t" + new String(msgPayload)) ;
 
             //populate Set
-            //syncUniqueRFidPresent.add(message.getPayload().toString());
-            uniqueRFidPresent.add(message.getPayload().toString());
-            mainActivity.handOverRefreshedSet(uniqueRFidPresent);
+            if(!syncUniqueRFidPresentList.contains(msgPayload)) {
+                syncUniqueRFidPresentList.add(msgPayload);
+            }
+          //  syncUniqueRFidPresent.add(msgPayload);
+           // uniqueRFidPresent.add(message.getPayload().toString());
+      //      mainActivity.handOverRefreshedSet(syncUniqueRFidPresent);
+            mainActivity.handOverRefreshedList(syncUniqueRFidPresentList);
         }
-
-        //       "  Message:\t" + new String(message.getPayload()) +
-        //       "  QoS:\t" + message.getQos());
     }
 
 

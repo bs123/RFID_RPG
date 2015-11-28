@@ -31,10 +31,6 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:orientation="vertical" >
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="test" />
 
         <Space
             android:layout_width="match_parent"

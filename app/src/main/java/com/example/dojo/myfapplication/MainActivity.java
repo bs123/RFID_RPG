@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList activatedItems;
     ArrayList idList;
     int test;
-    private List<String> uniqueRFidPresentList;
+    private List<String> uniqueRFidPresentList = new ArrayList<String>();
 
 
     @Override
