@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     int test;
     private List<String> uniqueRFidPresentList = new ArrayList<String>();
     Drawable bmp;
+    Drawable swordBmp;
     private  String sword = "3000E20020648118011816206C22";
     private  String hero = "3000E2002064811801200810C10D";
     boolean found = false;
@@ -61,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
         idList = new ArrayList<String>();
         createClientThread();
         bmp = getDrawable(R.drawable.test);
-        imageWrapper = (ImageView)findViewById(R.id.test);
+        swordBmp = getDrawable(R.drawable.sword);
+        imageWrapper = (ImageView)findViewById(R.id.sword);
       //  imageWrapper.setBackground(bmp);
     //    surfaceView.draw(new Canvas().drawColor(2));
 
@@ -109,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
            sb.append(next);
            if ( next.contains(hero) && next.contains(sword)   )
                found= true;
-            imageWrapper.setBackground(bmp);
+            imageWrapper.setBackground(swordBmp);
      //   surfaceView.draw(onDraw());
         }
 

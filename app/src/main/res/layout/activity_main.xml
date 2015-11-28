@@ -39,6 +39,13 @@
             android:layout_width="100dp"
             android:layout_height="100dp" />
 
+        <ImageView
+            android:layout_marginTop="100dp"
+            android:id="@+id/sword"
+            android:scaleType="fitXY"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="100dp"
