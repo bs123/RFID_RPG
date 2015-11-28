@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList activatedItems;
     ArrayList idList;
     int test;
-    private Set<String> syncedUniqueRfidSet;
+    private List<String> uniqueRFidPresentList;
 
 
     @Override
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         previousPosition = new ArrayList<String>();
         activatedItems = new ArrayList<String>();
         idList = new ArrayList<String>();
-        createClientThread ();
+        createClientThread();
 
 
     /*    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void refresh (View view) {
         status = (TextView)findViewById(R.id.status);
-        status.setText("" + this.syncedUniqueRfidSet.size());
+        status.setText("" + this.uniqueRFidPresentList.size());
     }
 
     private void createClientThread () {
@@ -91,11 +92,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+
+
     }
 
 
-    public void handOverRefreshedSet(Set<String> syncedUniqueRfidSet) {
-        this.syncedUniqueRfidSet = syncedUniqueRfidSet;
-    }
 
+    public void handOverRefreshedList(List<String> uniqueRFidPresentList) {
+        System.out.println(" +++++++++++++++++++++++++ update List "  + uniqueRFidPresentList.size());
+        this.uniqueRFidPresentList = uniqueRFidPresentList;
+
+
+    }
 }
