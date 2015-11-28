@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private  String sword = "3000E20020648118011816206C22";
     private  String hero = "3000E2002064811801200810C10D";
     boolean found = false;
+    ImageView imageWrapper;
 
 
     @Override
@@ -60,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
         idList = new ArrayList<String>();
         createClientThread();
         bmp = getDrawable(R.drawable.test);
-        ImageView imageWrapper = (ImageView)findViewById(R.id.test);
-        imageWrapper.setBackground(bmp);
+        imageWrapper = (ImageView)findViewById(R.id.test);
+      //  imageWrapper.setBackground(bmp);
     //    surfaceView.draw(new Canvas().drawColor(2));
 
 
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
            sb.append(next);
            if ( next.contains(hero) && next.contains(sword)   )
                found= true;
+            imageWrapper.setBackground(bmp);
      //   surfaceView.draw(onDraw());
         }
 
