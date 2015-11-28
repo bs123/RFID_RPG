@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
+       // surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
            sb.append(next);
            if ( next.contains(hero) && next.contains(sword)   )
                found= true;
-        surfaceView.draw(onDraw());
+     //   surfaceView.draw(onDraw());
         }
 
         status.setText("DEBUG : " + this.uniqueRFidPresentList.size() + " " + sb.toString());
