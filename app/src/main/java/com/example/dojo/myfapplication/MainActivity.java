@@ -110,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
             String next = iterator.next();
            sb.append(next);
            if ( next.contains(hero) && next.contains(sword)   )
-               found= true;
-            imageWrapper.setBackground(swordBmp);
+                found = true;
+               imageWrapper.setBackground(swordBmp);
         }
 
         status.setText("DEBUG : Found: " + found + " size: "+ this.uniqueRFidPresentList.size() + " #### " + sb.toString());
