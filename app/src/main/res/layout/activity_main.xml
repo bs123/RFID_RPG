@@ -32,9 +32,23 @@
         android:paddingRight="16dp"
         android:orientation="vertical" >
 
+        <ImageView
+            android:layout_marginTop="100dp"
+            android:id="@+id/test"
+            android:scaleType="fitXY"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:layout_gravity="center_horizontal" />
+
+        <SurfaceView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/surfaceView"
+            android:background="@android:color/holo_red_dark"
             android:layout_gravity="center_horizontal" />
 
         <TextView

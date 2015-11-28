@@ -1,5 +1,11 @@
 package com.example.dojo.myfapplication;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -7,10 +13,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.SurfaceView;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,15 +28,18 @@ import java.util.Set;
 import java.util.logging.LogRecord;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.toString() ;
+    private SurfaceView surfaceView;
     TextView status;
     ArrayList previousPosition;
     ArrayList activatedItems;
     ArrayList idList;
     int test;
     private List<String> uniqueRFidPresentList = new ArrayList<String>();
+    Drawable bmp;
     private  String sword = "3000E20020648118011816206C22";
     private  String hero = "3000E2002064811801200810C10D";
     boolean found = false;
@@ -38,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -47,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         activatedItems = new ArrayList<String>();
         idList = new ArrayList<String>();
         createClientThread();
+        bmp = getDrawable(R.drawable.test);
+        ImageView imageWrapper = (ImageView)findViewById(R.id.test);
+        imageWrapper.setBackground(bmp);
+    //    surfaceView.draw(new Canvas().drawColor(2));
 
 
     /*    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -92,15 +108,18 @@ public class MainActivity extends AppCompatActivity {
            sb.append(next);
            if ( next.contains(hero) && next.contains(sword)   )
                found= true;
+        surfaceView.draw(onDraw());
         }
 
         status.setText("DEBUG : " + this.uniqueRFidPresentList.size() + " " + sb.toString());
+    
     }
 
     private void createClientThread () {
         try {
         ClientThread clientThread = new ClientThread(this);
-        clientThread.start();} catch (Exception e){
+        clientThread.start();
+        } catch (Exception e){
                 Log.e(TAG, "mainAcTread", e);
             }
     }
@@ -121,6 +140,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
 
+    }
+
+    private Canvas onDraw() {
+        Canvas canvas = new Canvas();
+      //s  canvas.drawBitmap(bmp, (float) 0.0, (float) 0.0, new Paint());
+        canvas.drawColor(Color.RED);
+        return canvas;
     }
 
 
