@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     TextView status;
     ArrayList previousPosition;
     ArrayList activatedItems;
+    ArrayList idList;
     int test;
 
     @Override
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         previousPosition = new ArrayList<String>();
         activatedItems = new ArrayList<String>();
+        idList = new ArrayList<String>();
 
 
     /*    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -64,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
     public void refresh (View view) {
         status = (TextView)findViewById(R.id.status);
         status.setText("Refreshed");
-
-
     }
+
+    private void create
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
