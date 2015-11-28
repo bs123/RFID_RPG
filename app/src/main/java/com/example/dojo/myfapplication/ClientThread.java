@@ -7,6 +7,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -41,11 +42,12 @@ public class ClientThread extends Thread {
 
         @Override
         public void messageArrived(String topic, MqttMessage message) throws MqttException {
-            String msgPayload = message.getPayload().toString();
+            String msgPayload  = new String(message.getPayload());
             String time = new Timestamp(System.currentTimeMillis()).toString();
+
             System.out.println("Time:\t" + time +
                     "  Topic:\t" + topic +
-                    "  Message:\t" + new String(msgPayload)) ;
+                    "  Message:\t" + msgPayload.toString()) ;
 
             //populate Set
             if(!syncUniqueRFidPresentList.contains(msgPayload)) {

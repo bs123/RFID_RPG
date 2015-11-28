@@ -24,7 +24,7 @@ public class MqttNRedClientTest {
 
     }
 
-        @Test
+    @Test
     public void testSubscribeQueue() throws Exception {
         MqttNRedClient mqttClient = new MqttNRedClient(brokerUrl, clientId, cleanSession, quietMode, userName, password);
         mqttClient.subscribe("zombikiller", 0);

@@ -11,8 +11,11 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,7 +73,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void refresh (View view) {
         status = (TextView)findViewById(R.id.status);
-        status.setText("" + this.uniqueRFidPresentList.size());
+        // status.setText("" + this.uniqueRFidPresentList.size());
+        Iterator<String> iterator = uniqueRFidPresentList.iterator();
+       StringBuilder sb =  new StringBuilder();
+        while (iterator.hasNext())
+        {
+           sb.append(iterator.next());
+        }
+        status.setText("" + this.uniqueRFidPresentList.size() + " " + sb.toString());
     }
 
     private void createClientThread () {
@@ -99,9 +109,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void handOverRefreshedList(List<String> uniqueRFidPresentList) {
-        System.out.println(" +++++++++++++++++++++++++ update List "  + uniqueRFidPresentList.size());
         this.uniqueRFidPresentList = uniqueRFidPresentList;
 
-
+        System.out.println(" +++++++++++++++++++++++++ update List "  + uniqueRFidPresentList.size());
     }
 }
