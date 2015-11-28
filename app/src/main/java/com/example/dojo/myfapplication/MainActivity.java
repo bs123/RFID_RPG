@@ -24,6 +24,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.LogRecord;
 
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private  String sword = "3000E20020648118011816206C22";
     private  String hero = "3000E2002064811801200810C10D";
     boolean found = false;
+    Quest activeQuest = new Quest(hero, sword, "kleiner", "großer");
     ImageView imageWrapper;
 
 
@@ -101,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void refresh (View view) {
-        // status.setText("" + this.uniqueRFidPresentList.size());
         Iterator<String> iterator = uniqueRFidPresentList.iterator();
 
        StringBuilder sb =  new StringBuilder();
@@ -109,9 +110,15 @@ public class MainActivity extends AppCompatActivity {
         {
             String next = iterator.next();
            sb.append(next);
-           if ( next.contains(hero) && next.contains(sword)   )
-                found = true;
-               imageWrapper.setBackground(swordBmp);
+           if ( next.contains(activeQuest.getHero()) && next.contains(activeQuest.getArtefact()) &&  next.contains(activeQuest.getStart()) ) {
+               activeQuest.setArtefactReserved(true);
+               found = true;
+           }
+
+            if ( next.contains(activeQuest.getHero()) && next.contains(activeQuest.getArtefact()) &&  next.contains(activeQuest.getTarget()) ) {
+                activeQuest.setArtefactActivated(true);
+                imageWrapper.setBackground(swordBmp);
+           }
         }
 
         status.setText("DEBUG : Found: " + found + " size: "+ this.uniqueRFidPresentList.size() + " #### " + sb.toString());
