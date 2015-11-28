@@ -1,10 +1,13 @@
 package com.example.dojo.myfapplication;
 
+import android.util.Log;
+
 /**
  * Created by dojo on 28.11.15.
  */
 public class Quest {
 
+    private static final String TAG = Quest.class.toString();
     private String hero;
     private String artefact; //Todo ENUM
     private String start;
@@ -26,20 +29,6 @@ public class Quest {
         return artefact;
     }
 
-    public String getHero() {
-        return hero;
-    }
-
-
-    public String getStart() {
-        return start;
-    }
-
-
-    public String getTarget() {
-        return target;
-    }
-
     public boolean isArtefactReserved() {
         return artefactReserved;
     }
@@ -52,8 +41,25 @@ public class Quest {
         return artefactActivated;
     }
 
-    public void setArtefactActivated(boolean artefactActivated) {
+    private void setArtefactActivated(boolean artefactActivated) {
         this.artefactActivated = artefactActivated;
     }
 
+    public boolean setAndEvalArtefactReserved(String lastesMsg) {
+        boolean temp = (lastesMsg.contains(hero) && lastesMsg.contains(artefact) && lastesMsg.contains(start));
+        Log.i(TAG, "Quest - found artefact : " + temp);
+        //only set once to true
+        if (temp)
+            setArtefactReserved(temp);
+
+        return temp;
+    }
+
+    public boolean setAndEvalArtefactActivated(String lastesMsg) {
+        boolean temp = lastesMsg.contains(hero) && lastesMsg.contains(artefact) && lastesMsg.contains(target);
+        //only set once to true
+        if (temp)
+            setArtefactActivated(temp);
+        return temp;
+    }
 }

@@ -1,16 +1,9 @@
 package com.example.dojo.myfapplication;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.SurfaceView;
@@ -24,10 +17,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.LogRecord;
-
 
 
 public class MainActivity extends AppCompatActivity {
@@ -44,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     Drawable swordBmp;
     private  String sword = "3000E20020648118011816206C22";
     private  String hero = "3000E2002064811801200810C10D";
-    boolean found = false;
     Quest activeQuest = new Quest(hero, sword, "kleiner", "großer");
     ImageView imageWrapper;
 
@@ -108,20 +96,15 @@ public class MainActivity extends AppCompatActivity {
        StringBuilder sb =  new StringBuilder();
         while (iterator.hasNext())
         {
-            String next = iterator.next();
-           sb.append(next);
-           if ( next.contains(activeQuest.getHero()) && next.contains(activeQuest.getArtefact()) &&  next.contains(activeQuest.getStart()) ) {
-               activeQuest.setArtefactReserved(true);
-               found = true;
-           }
-
-            if ( next.contains(activeQuest.getHero()) && next.contains(activeQuest.getArtefact()) &&  next.contains(activeQuest.getTarget()) ) {
-                activeQuest.setArtefactActivated(true);
+            String nextMsg = iterator.next();
+              sb.append(nextMsg);
+               activeQuest.setAndEvalArtefactReserved(nextMsg);
+            if ( activeQuest.setAndEvalArtefactActivated(nextMsg) ) {
                 imageWrapper.setBackground(swordBmp);
            }
         }
 
-        status.setText("DEBUG : Found: " + found + " size: "+ this.uniqueRFidPresentList.size() + " #### " + sb.toString());
+        status.setText("DEBUG : FoundAndReserved: " + activeQuest.isArtefactReserved() + " ActivatedQuestFullfilled: " + activeQuest.isArtefactActivated() +  " size: "+ this.uniqueRFidPresentList.size() + " #### " + sb.toString());
     
     }
 
