@@ -112,10 +112,9 @@ public class MainActivity extends AppCompatActivity {
            if ( next.contains(hero) && next.contains(sword)   )
                found= true;
             imageWrapper.setBackground(swordBmp);
-     //   surfaceView.draw(onDraw());
         }
 
-        status.setText("DEBUG : " + this.uniqueRFidPresentList.size() + " " + sb.toString());
+        status.setText("DEBUG : Found: " + found + " size: "+ this.uniqueRFidPresentList.size() + " #### " + sb.toString());
     
     }
 
