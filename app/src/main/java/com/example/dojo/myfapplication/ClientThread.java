@@ -1,6 +1,5 @@
 package com.example.dojo.myfapplication;
 
-import com.example.MqttNRedClient;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
