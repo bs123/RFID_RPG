@@ -8,8 +8,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    TextView status;
+    ArrayList previousPosition;
+    ArrayList activatedItems;
+    int test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,8 +25,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        previousPosition = new ArrayList<String>();
+        activatedItems = new ArrayList<String>();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+    /*    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -26,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        */
     }
 
     @Override
@@ -33,6 +45,27 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    //compares current and previous position and saves the item ID in ArrayList activatedItems when they were moved
+    public void compare(ArrayList currentPosition) {
+        for(int i = 0; i < previousPosition.size(); i++) {
+            if(previousPosition.get(i).equals(currentPosition.get(i))) {
+                activatedItems.add(currentPosition.get(i));
+            }
+        }
+        previousPosition = currentPosition;
+    }
+
+    public void event (ArrayList events) {
+
+    }
+
+    public void refresh (View view) {
+        status = (TextView)findViewById(R.id.status);
+        status.setText("Refreshed");
+
+
     }
 
     @Override
