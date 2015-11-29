@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private  String hero = "3000E2002064811801200810C10D";
     Quest activeQuest = new Quest(hero, sword, "kleiner", "grosser");
     ImageView imageWrapper;
+    private boolean swordBonusReceived;
 
 
 
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         swordBmp = getDrawable(R.drawable.sword);
         imageWrapper = (ImageView)findViewById(R.id.sword);
         status.setMovementMethod(new ScrollingMovementMethod());
+        swordBonusReceived = false;
         //  imageWrapper.draw(new Canvas());
       //  imageWrapper.setBackground(bmp);
     //    surfaceView.draw(new Canvas().drawColor(2));
@@ -111,7 +113,9 @@ public class MainActivity extends AppCompatActivity {
                 activeQuest.setAndEvalArtefactReserved(nextMsg);
                 if (activeQuest.setAndEvalArtefactActivated(nextMsg)) {
                     imageWrapper.setBackground(swordBmp);
-                    pointsInt += 1000;
+                    if(!swordBonusReceived) {
+                        pointsInt += 1000;
+                    }
                 }
             }catch(Exception ex) {
                 ex.printStackTrace();
