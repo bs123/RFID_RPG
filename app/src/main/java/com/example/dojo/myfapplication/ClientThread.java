@@ -3,6 +3,7 @@ package com.example.dojo.myfapplication;
 
 import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -58,6 +59,18 @@ public class ClientThread extends Thread {
             }
             mainActivity.handOverRefreshedList(syncUniqueRFidPresentList);
         }
+
+        public void connectionLost(Throwable cause) {
+            // Called when the connection to the server has been lost.
+            // An application may choose to implement reconnection
+            // logic at this point. This sample simply exits.
+
+           ClientThread ct = new ClientThread(mainActivity);
+            ct.run();
+
+        }
+
+
     }
 
 
@@ -70,7 +83,7 @@ public class ClientThread extends Thread {
             mqttClient.setContext(mainActivity.getApplicationContext());
             mqttClient.subscribe("zombikiller", 0);
         } catch (MqttException e) {
-            Log.e(TAG,"Exception while subscribe",e);
+            Log.e(TAG, "Exception while subscribe", e);
         }
         //   } catch (MqttException e) {
         //      e.printStackTrace();

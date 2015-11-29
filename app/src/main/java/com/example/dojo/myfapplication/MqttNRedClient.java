@@ -333,6 +333,7 @@ public class MqttNRedClient implements MqttCallback  {
         // logic at this point. This sample simply exits.
         Log.e(TAG,"connectionLost " + ctx,cause);
         Toast.makeText(ctx,"sdaadsadsadasdsa",Toast.LENGTH_LONG).show();
+
     }
 
 
