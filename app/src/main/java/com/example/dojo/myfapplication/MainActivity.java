@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private SurfaceView surfaceView;
     TextView status;
     TextView points;
+    TextView questText;
     ArrayList previousPosition;
     ArrayList activatedItems;
     ArrayList idList;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         status = (TextView)findViewById(R.id.status);
         points = (TextView)findViewById(R.id.points);
+        questText= (TextView)findViewById(R.id.questText);
 
         previousPosition = new ArrayList<String>();
         activatedItems = new ArrayList<String>();
@@ -116,14 +118,16 @@ public class MainActivity extends AppCompatActivity {
                 String nextMsg = iterator.next();
                 sb.append(nextMsg);
                 activeQuest.toggleAndEvalArtefactReserved(nextMsg);
-        /*        imageWrapperSword.setBackground(swordBmp);
-                imageWrapperClub.setBackground(clubBmp);
-                imageWrapperBow.setBackground(bowBmp);
-                imageWrapperAxe.setBackground(axeBmp);
-         */       if (activeQuest.toggleAndEvalArtefactActivated(nextMsg)) {
-                    imageWrapperSword.setBackground(swordBmp);
+                if (activeQuest.isArtefactReserved() && !activeQuest.isMsgTwoShowed())
+                {
+                    questText.setText("Take the dangerous journey to the Main Portal and awake the Mighty Magic Sword.");
+                    activeQuest.setMsgTwoShowed(true);
+                }
+                if (activeQuest.toggleAndEvalArtefactActivated(nextMsg)) {
+                    imageWrapper.setBackground(swordBmp);
                     if(!activeQuest.getQuestBonusReceived()) {
                         pointsInt += activeQuest.rewardQuestPoints();
+                        questText.setText("Brave and doomed Hero find and defeat the Ork Queen Nadeschka, if you surrender you and your descendants will be enslaved for eternity.");
                     }
                 }
 

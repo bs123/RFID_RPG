@@ -18,6 +18,7 @@ public class Quest {
     private boolean artefactReserved;
     private boolean artefactActivated;
     private boolean questBonusReceived;
+    private boolean msgTwoShowed;
 
 
     public Quest(String hero, Artefacts artefact, String start, String target) {
@@ -52,9 +53,9 @@ public class Quest {
         boolean temp = (lastesMsg.contains(hero) && lastesMsg.contains(artefact.getRfid()) && lastesMsg.contains(start));
         Log.i(TAG, "Quest - found artefact : " + temp);
         //only set once to true
-        if (temp)
+        if (temp) {
             setArtefactReserved(temp);
-
+        }
         return temp;
     }
 
@@ -90,5 +91,12 @@ public class Quest {
             return getArtefact().getPoints();
         }
         return 0;
+    }
+
+    public boolean isMsgTwoShowed() {
+        return msgTwoShowed;
+    }
+    public void setMsgTwoShowed(boolean msgTwoShowed) {
+        this.msgTwoShowed = msgTwoShowed;
     }
 }
