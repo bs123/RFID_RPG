@@ -124,7 +124,8 @@ public class MainActivity extends AppCompatActivity {
                     activeQuest.setMsgTwoShowed(true);
                 }
                 if (activeQuest.toggleAndEvalArtefactActivated(nextMsg)) {
-                    imageWrapper.setBackground(swordBmp);
+
+                    imageWrapperSword.setBackground(swordBmp);
                     if(!activeQuest.getQuestBonusReceived()) {
                         pointsInt += activeQuest.rewardQuestPoints();
                         questText.setText("Brave and doomed Hero find and defeat the Ork Queen Nadeschka, if you surrender you and your descendants will be enslaved for eternity.");
