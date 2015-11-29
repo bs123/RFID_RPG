@@ -11,15 +11,16 @@ public class Quest {
 
     private static final String TAG = Quest.class.toString();
     private String hero;
-    private String artefact; //Todo ENUM
+    private Artefacts artefact;
     private String start;
     private String target;
 
     private boolean artefactReserved;
     private boolean artefactActivated;
+    private boolean questBonusReceived;
 
 
-    public Quest(String hero, String artefact, String start, String target) {
+    public Quest(String hero, Artefacts artefact, String start, String target) {
         this.hero = hero;
         this.artefact = artefact;
         this.start = start;
@@ -27,7 +28,7 @@ public class Quest {
 
     }
 
-    public String getArtefact() {
+    public Artefacts getArtefact() {
         return artefact;
     }
 
@@ -48,7 +49,7 @@ public class Quest {
     }
 
     public boolean toggleAndEvalArtefactReserved(String lastesMsg) {
-        boolean temp = (lastesMsg.contains(hero) && lastesMsg.contains(artefact) && lastesMsg.contains(start));
+        boolean temp = (lastesMsg.contains(hero) && lastesMsg.contains(artefact.getRfid()) && lastesMsg.contains(start));
         Log.i(TAG, "Quest - found artefact : " + temp);
         //only set once to true
         if (temp)
@@ -58,7 +59,7 @@ public class Quest {
     }
 
     public boolean toggleAndEvalArtefactActivated(String latestMsg) {
-        boolean temp = latestMsg.contains(hero) && latestMsg.contains(artefact) && latestMsg.contains(target);
+        boolean temp = latestMsg.contains(hero) && latestMsg.contains(artefact.getRfid()) && latestMsg.contains(target);
         Log.i(TAG, "Quest - fullfilled : " + temp);
 
         //only set once to true
@@ -77,5 +78,17 @@ public class Quest {
 
         return 0;
 
+    }
+
+    public boolean getQuestBonusReceived() {
+        return questBonusReceived;
+    }
+
+    public int rewardQuestPoints() {
+        if(!questBonusReceived) {
+            questBonusReceived=true;
+            return getArtefact().getPoints();
+        }
+        return 0;
     }
 }

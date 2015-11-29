@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageWrapperBow;
     ImageView imageWrapperClub;
     private boolean swordBonusReceived;
+    
 
 
 
@@ -74,21 +75,6 @@ public class MainActivity extends AppCompatActivity {
         imageWrapperAxe = (ImageView)findViewById(R.id.axe);
         imageWrapperClub = (ImageView)findViewById(R.id.club);
         status.setMovementMethod(new ScrollingMovementMethod());
-        swordBonusReceived = false;
-        //  imageWrapper.draw(new Canvas());
-      //  imageWrapper.setBackground(bmp);
-    //    surfaceView.draw(new Canvas().drawColor(2));
-
-
-    /*    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
     }
 
     @Override
@@ -128,12 +114,12 @@ public class MainActivity extends AppCompatActivity {
                 imageWrapperBow.setBackground(bowBmp);
                 imageWrapperAxe.setBackground(axeBmp);
                 if (activeQuest.toggleAndEvalArtefactActivated(nextMsg)) {
-                    imageWrapperSword.setBackground(swordBmp);
-                    if(!swordBonusReceived) {
-                        pointsInt += 1000;
-                        swordBonusReceived=true;
+                    imageWrapper.setBackground(swordBmp);
+                    if(!activeQuest.getQuestBonusReceived()) {
+                        pointsInt += activeQuest.rewardQuestPoints();
                     }
                 }
+
                 Log.i(TAG, "Monster killed : " + activeQuest.countAvailableMonsters(nextMsg));
 
 
