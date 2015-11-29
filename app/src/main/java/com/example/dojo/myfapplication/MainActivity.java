@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         bmp = getDrawable(R.drawable.test);
         swordBmp = getDrawable(R.drawable.sword);
         imageWrapper = (ImageView)findViewById(R.id.sword);
+      //  imageWrapper.draw(new Canvas());
       //  imageWrapper.setBackground(bmp);
     //    surfaceView.draw(new Canvas().drawColor(2));
 
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void refresh (View view) {
+        // status.setText("" + this.uniqueRFidPresentList.size());
         Iterator<String> iterator = uniqueRFidPresentList.iterator();
 
        StringBuilder sb =  new StringBuilder();
