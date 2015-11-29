@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     Drawable clubBmp;
     private  String sword = "3000E20020648118011816206C22";
     private  String hero = "3000E2002064811801200810C10D";
-    Quest activeQuest = new Quest(hero, sword, "kleiner", "grosser");
+    Quest activeQuest = new Quest(hero, Artefacts.SWORD, "kleiner", "grosser");
     ImageView imageWrapperSword;
     ImageView imageWrapperAxe;
     ImageView imageWrapperBow;
@@ -109,12 +109,12 @@ public class MainActivity extends AppCompatActivity {
                 String nextMsg = iterator.next();
                 sb.append(nextMsg);
                 activeQuest.toggleAndEvalArtefactReserved(nextMsg);
-                imageWrapperSword.setBackground(swordBmp);
+        /*        imageWrapperSword.setBackground(swordBmp);
                 imageWrapperClub.setBackground(clubBmp);
                 imageWrapperBow.setBackground(bowBmp);
                 imageWrapperAxe.setBackground(axeBmp);
-                if (activeQuest.toggleAndEvalArtefactActivated(nextMsg)) {
-                    imageWrapper.setBackground(swordBmp);
+         */       if (activeQuest.toggleAndEvalArtefactActivated(nextMsg)) {
+                    imageWrapperSword.setBackground(swordBmp);
                     if(!activeQuest.getQuestBonusReceived()) {
                         pointsInt += activeQuest.rewardQuestPoints();
                     }
