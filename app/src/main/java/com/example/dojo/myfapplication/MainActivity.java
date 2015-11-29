@@ -36,11 +36,8 @@ public class MainActivity extends AppCompatActivity {
     Drawable swordBmp;
     private  String sword = "3000E20020648118011816206C22";
     private  String hero = "3000E2002064811801200810C10D";
-    Quest activeQuest = new Quest(hero, sword, "kleiner", "grosser");
+    Quest activeQuest = new Quest(hero, Artefacts.SWORD, "kleiner", "grosser");
     ImageView imageWrapper;
-    private boolean swordBonusReceived;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,21 +59,6 @@ public class MainActivity extends AppCompatActivity {
         swordBmp = getDrawable(R.drawable.sword);
         imageWrapper = (ImageView)findViewById(R.id.sword);
         status.setMovementMethod(new ScrollingMovementMethod());
-        swordBonusReceived = false;
-        //  imageWrapper.draw(new Canvas());
-      //  imageWrapper.setBackground(bmp);
-    //    surfaceView.draw(new Canvas().drawColor(2));
-
-
-    /*    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
     }
 
     @Override
@@ -113,11 +95,11 @@ public class MainActivity extends AppCompatActivity {
                 activeQuest.toggleAndEvalArtefactReserved(nextMsg);
                 if (activeQuest.toggleAndEvalArtefactActivated(nextMsg)) {
                     imageWrapper.setBackground(swordBmp);
-                    if(!swordBonusReceived) {
-                        pointsInt += 1000;
-                        swordBonusReceived=true;
+                    if(!activeQuest.getQuestBonusReceived()) {
+                        pointsInt += activeQuest.rewardQuestPoints();
                     }
                 }
+
                 Log.i(TAG, "Monster killed : " + activeQuest.countAvailableMonsters(nextMsg));
 
 

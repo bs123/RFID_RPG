@@ -46,6 +46,7 @@ public class ClientThread extends Thread {
 
         @Override
         public void messageArrived(String topic, MqttMessage message)  {
+            message.getPayload();
             String msgPayload  = new String(message.getPayload());
             String time = new Timestamp(System.currentTimeMillis()).toString();
 
@@ -67,10 +68,7 @@ public class ClientThread extends Thread {
 
            ClientThread ct = new ClientThread(mainActivity);
             ct.run();
-
         }
-
-
     }
 
 
