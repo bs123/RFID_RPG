@@ -73,7 +73,9 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/status"
             android:id="@+id/status"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:maxLines = "100"
+            android:scrollbars = "vertical"/>
 
 
     </LinearLayout>

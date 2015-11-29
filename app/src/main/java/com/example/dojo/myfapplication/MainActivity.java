@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.view.SurfaceView;
 import android.util.Log;
 import android.view.View;
@@ -54,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
         bmp = getDrawable(R.drawable.test);
         swordBmp = getDrawable(R.drawable.sword);
         imageWrapper = (ImageView)findViewById(R.id.sword);
-      //  imageWrapper.draw(new Canvas());
+        status.setMovementMethod(new ScrollingMovementMethod());
+        //  imageWrapper.draw(new Canvas());
       //  imageWrapper.setBackground(bmp);
     //    surfaceView.draw(new Canvas().drawColor(2));
 
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         {
             String nextMsg = iterator.next();
               sb.append(nextMsg);
-               activeQuest.setAndEvalArtefactReserved(nextMsg);
+            activeQuest.setAndEvalArtefactReserved(nextMsg);
             if ( activeQuest.setAndEvalArtefactActivated(nextMsg) ) {
                 imageWrapper.setBackground(swordBmp);
            }
