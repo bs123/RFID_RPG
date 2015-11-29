@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     Drawable axeBmp;
     Drawable bowBmp;
     Drawable clubBmp;
+    Drawable zeldaBmp;
     private  String sword = "3000E20020648118011816206C22";
     private  String hero = "3000E2002064811801200810C10D";
     Quest activeQuest = new Quest(hero, Artefacts.SWORD, "kleiner", "grosser");
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageWrapperAxe;
     ImageView imageWrapperBow;
     ImageView imageWrapperClub;
+    ImageView imageWrapperZelda;
     private boolean swordBonusReceived;
     
 
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+   //     this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
        // surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -70,11 +74,14 @@ public class MainActivity extends AppCompatActivity {
         axeBmp = getDrawable(R.drawable.axe);
         clubBmp = getDrawable(R.drawable.club);
         bowBmp = getDrawable(R.drawable.bow);
+        zeldaBmp = getDrawable(R.drawable.zelda);
         imageWrapperSword = (ImageView)findViewById(R.id.sword);
         imageWrapperBow = (ImageView)findViewById(R.id.bow);
         imageWrapperAxe = (ImageView)findViewById(R.id.axe);
         imageWrapperClub = (ImageView)findViewById(R.id.club);
+        imageWrapperZelda = (ImageView)findViewById(R.id.zelda);
         status.setMovementMethod(new ScrollingMovementMethod());
+        imageWrapperZelda.setBackground(zeldaBmp);
     }
 
     @Override

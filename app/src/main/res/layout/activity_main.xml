@@ -103,7 +103,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
+            android:layout_height="70dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/questText"
             android:id="@+id/questText"
@@ -112,6 +112,15 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal" />
+
+        <ImageView
+            android:layout_marginTop="100dp"
+            android:id="@+id/zelda"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="right"
+            android:hapticFeedbackEnabled="true"
+            android:maxWidth="100dp" />
 
 
         <TextView
