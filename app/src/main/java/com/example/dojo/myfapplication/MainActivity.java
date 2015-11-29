@@ -25,10 +25,12 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.toString() ;
     private SurfaceView surfaceView;
     TextView status;
+    TextView points;
     ArrayList previousPosition;
     ArrayList activatedItems;
     ArrayList idList;
     int test;
+    int pointsInt;
     private List<String> uniqueRFidPresentList = new ArrayList<String>();
     Drawable bmp;
     Drawable swordBmp;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageWrapper;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +48,10 @@ public class MainActivity extends AppCompatActivity {
        // surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        pointsInt = 0;
 
         status = (TextView)findViewById(R.id.status);
+        points = (TextView)findViewById(R.id.points);
 
         previousPosition = new ArrayList<String>();
         activatedItems = new ArrayList<String>();
@@ -106,13 +111,14 @@ public class MainActivity extends AppCompatActivity {
                 activeQuest.setAndEvalArtefactReserved(nextMsg);
                 if (activeQuest.setAndEvalArtefactActivated(nextMsg)) {
                     imageWrapper.setBackground(swordBmp);
+                    pointsInt += 1000;
                 }
             }catch(Exception ex) {
                 ex.printStackTrace();
                 break;
             }
         }
-
+        points.setText("Points: " + pointsInt);
         status.setText("DEBUG : FoundAndReserved: " + activeQuest.isArtefactReserved() + " ActivatedQuestFullfilled: " + activeQuest.isArtefactActivated() +  " size: "+ this.uniqueRFidPresentList.size() + " #### " + sb.toString());
     
     }

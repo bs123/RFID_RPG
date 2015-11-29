@@ -217,29 +217,36 @@ public class MqttNRedClient implements MqttCallback  {
         String tmpDir = System.getProperty("java.io.tmpdir");
         MqttDefaultFilePersistence dataStore = new MqttDefaultFilePersistence(tmpDir);
 
-        try {
-            // Construct the connection options object that contains connection parameters
-            // such as cleanSession and LWT
-            conOpt = new MqttConnectOptions();
-            conOpt.setCleanSession(clean);
-            if(password != null ) {
-                conOpt.setPassword(this.password.toCharArray());
+        int remainingTries = 10;
+
+        while (remainingTries > 0) {
+            try {
+                // Construct the connection options object that contains connection parameters
+                // such as cleanSession and LWT
+                conOpt = new MqttConnectOptions();
+                conOpt.setCleanSession(clean);
+                if (password != null) {
+                    conOpt.setPassword(this.password.toCharArray());
+                }
+                if (userName != null) {
+                    conOpt.setUserName(this.userName);
+                }
+
+                // Construct an MQTT blocking mode client
+                client = new MqttClient(this.brokerUrl, clientId, dataStore);
+
+                // Set this wrapper as the callback handler
+                client.setCallback(this);
+                return;
+
+            } catch (MqttException e) {
+
+                Log.e(TAG, "Exception while subscribe", e);
+                remainingTries -= 1;
             }
-            if(userName != null) {
-                conOpt.setUserName(this.userName);
-            }
-
-            // Construct an MQTT blocking mode client
-            client = new MqttClient(this.brokerUrl,clientId, dataStore);
-
-            // Set this wrapper as the callback handler
-            client.setCallback(this);
-
-        } catch (MqttException e) {
-
-            Log.e(TAG, "Exception while subscribe", e);
-            System.exit(1);
         }
+        Log.e(TAG, "Giving up subscribing");
+        System.exit(1);
     }
 
     /**
@@ -331,7 +338,7 @@ public class MqttNRedClient implements MqttCallback  {
         // Called when the connection to the server has been lost.
         // An application may choose to implement reconnection
         // logic at this point. This sample simply exits.
-        Log.e(TAG,"connectionLost " + ctx,cause);
+        Log.e(TAG, "connectionLost " + ctx, cause);
         Toast.makeText(ctx,"sdaadsadsadasdsa",Toast.LENGTH_LONG).show();
 
     }
