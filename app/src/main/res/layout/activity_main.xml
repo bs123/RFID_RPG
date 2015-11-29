@@ -47,16 +47,42 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+        android:layout_height="90dp"
+
         android:orientation="horizontal" >
 
         <ImageView
             android:layout_marginTop="100dp"
             android:id="@+id/sword"
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:hapticFeedbackEnabled="true"
+            android:maxWidth="100dp" />
+
+        <ImageView
+            android:layout_marginTop="100dp"
+            android:id="@+id/axe"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:hapticFeedbackEnabled="true"
+            android:maxWidth="100dp" />
+
+        <ImageView
+            android:layout_marginTop="100dp"
+            android:id="@+id/bow"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:hapticFeedbackEnabled="true"
+            android:maxWidth="100dp" />
+
+        <ImageView
+            android:layout_marginTop="100dp"
+            android:id="@+id/club"
+            android:layout_width="50dp"
+            android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
             android:hapticFeedbackEnabled="true"
             android:maxWidth="100dp" />

@@ -34,10 +34,16 @@ public class MainActivity extends AppCompatActivity {
     private List<String> uniqueRFidPresentList = new ArrayList<String>();
     Drawable bmp;
     Drawable swordBmp;
+    Drawable axeBmp;
+    Drawable bowBmp;
+    Drawable clubBmp;
     private  String sword = "3000E20020648118011816206C22";
     private  String hero = "3000E2002064811801200810C10D";
     Quest activeQuest = new Quest(hero, sword, "kleiner", "grosser");
-    ImageView imageWrapper;
+    ImageView imageWrapperSword;
+    ImageView imageWrapperAxe;
+    ImageView imageWrapperBow;
+    ImageView imageWrapperClub;
     private boolean swordBonusReceived;
 
 
@@ -60,7 +66,13 @@ public class MainActivity extends AppCompatActivity {
         createClientThread();
         bmp = getDrawable(R.drawable.test);
         swordBmp = getDrawable(R.drawable.sword);
-        imageWrapper = (ImageView)findViewById(R.id.sword);
+        axeBmp = getDrawable(R.drawable.axe);
+        clubBmp = getDrawable(R.drawable.club);
+        bowBmp = getDrawable(R.drawable.bow);
+        imageWrapperSword = (ImageView)findViewById(R.id.sword);
+        imageWrapperBow = (ImageView)findViewById(R.id.bow);
+        imageWrapperAxe = (ImageView)findViewById(R.id.axe);
+        imageWrapperClub = (ImageView)findViewById(R.id.club);
         status.setMovementMethod(new ScrollingMovementMethod());
         swordBonusReceived = false;
         //  imageWrapper.draw(new Canvas());
@@ -111,8 +123,12 @@ public class MainActivity extends AppCompatActivity {
                 String nextMsg = iterator.next();
                 sb.append(nextMsg);
                 activeQuest.toggleAndEvalArtefactReserved(nextMsg);
+                imageWrapperSword.setBackground(swordBmp);
+                imageWrapperClub.setBackground(clubBmp);
+                imageWrapperBow.setBackground(bowBmp);
+                imageWrapperAxe.setBackground(axeBmp);
                 if (activeQuest.toggleAndEvalArtefactActivated(nextMsg)) {
-                    imageWrapper.setBackground(swordBmp);
+                    imageWrapperSword.setBackground(swordBmp);
                     if(!swordBonusReceived) {
                         pointsInt += 1000;
                         swordBonusReceived=true;
