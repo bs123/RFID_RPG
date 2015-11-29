@@ -108,13 +108,16 @@ public class MainActivity extends AppCompatActivity {
             try {
                 String nextMsg = iterator.next();
                 sb.append(nextMsg);
-                activeQuest.setAndEvalArtefactReserved(nextMsg);
-                if (activeQuest.setAndEvalArtefactActivated(nextMsg)) {
+                activeQuest.toggleAndEvalArtefactReserved(nextMsg);
+                if (activeQuest.toggleAndEvalArtefactActivated(nextMsg)) {
                     imageWrapper.setBackground(swordBmp);
                     pointsInt += 1000;
                 }
+                Log.i(TAG, "Monster killed : " + activeQuest.countAvailableMonsters(nextMsg));
+
+
             }catch(Exception ex) {
-                ex.printStackTrace();
+                Log.e(TAG, "mainAcCuncurrencyProblem", ex);
                 break;
             }
         }
@@ -128,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         ClientThread clientThread = new ClientThread(this);
         clientThread.start();
         } catch (Exception e){
-                Log.e(TAG, "mainAcTread", e);
+                Log.e(TAG, "mainAcCreateClientThread", e);
             }
     }
 
@@ -159,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void handOverRefreshedList(List<String> uniqueRFidPresentList) {
+    public synchronized  void handOverRefreshedList(List<String> uniqueRFidPresentList) {
         this.uniqueRFidPresentList = uniqueRFidPresentList;
      /*   final Handler handler = new Handler();
         Thread t = new Thread(new Runnable() {

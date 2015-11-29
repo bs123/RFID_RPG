@@ -2,6 +2,8 @@ package com.example.dojo.myfapplication;
 
 import android.util.Log;
 
+import java.util.Arrays;
+
 /**
  * Created by dojo on 28.11.15.
  */
@@ -45,7 +47,7 @@ public class Quest {
         this.artefactActivated = artefactActivated;
     }
 
-    public boolean setAndEvalArtefactReserved(String lastesMsg) {
+    public boolean toggleAndEvalArtefactReserved(String lastesMsg) {
         boolean temp = (lastesMsg.contains(hero) && lastesMsg.contains(artefact) && lastesMsg.contains(start));
         Log.i(TAG, "Quest - found artefact : " + temp);
         //only set once to true
@@ -55,11 +57,25 @@ public class Quest {
         return temp;
     }
 
-    public boolean setAndEvalArtefactActivated(String lastesMsg) {
-        boolean temp = lastesMsg.contains(hero) && lastesMsg.contains(artefact) && lastesMsg.contains(target);
+    public boolean toggleAndEvalArtefactActivated(String latestMsg) {
+        boolean temp = latestMsg.contains(hero) && latestMsg.contains(artefact) && latestMsg.contains(target);
+        Log.i(TAG, "Quest - fullfilled : " + temp);
+
         //only set once to true
         if (temp)
             setArtefactActivated(temp);
         return temp;
+    }
+
+    public int countAvailableMonsters(String latestMsg) {
+
+        boolean temp = (latestMsg.contains(hero) && isArtefactActivated());
+        Log.i(TAG, "Quest - fullfilled : " + latestMsg);
+
+        if (temp)
+            return  1;
+
+        return 0;
+
     }
 }
