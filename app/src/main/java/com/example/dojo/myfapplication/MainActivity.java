@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     imageWrapper.setBackground(swordBmp);
                     if(!swordBonusReceived) {
                         pointsInt += 1000;
+                        swordBonusReceived=true;
                     }
                 }
                 Log.i(TAG, "Monster killed : " + activeQuest.countAvailableMonsters(nextMsg));
