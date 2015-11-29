@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     Drawable swordBmp;
     private  String sword = "3000E20020648118011816206C22";
     private  String hero = "3000E2002064811801200810C10D";
-    Quest activeQuest = new Quest(hero, sword, "kleiner", "großer");
+    Quest activeQuest = new Quest(hero, sword, "kleiner", "grosser");
     ImageView imageWrapper;
 
 
@@ -100,12 +100,17 @@ public class MainActivity extends AppCompatActivity {
        StringBuilder sb =  new StringBuilder();
         while (iterator.hasNext())
         {
-            String nextMsg = iterator.next();
-              sb.append(nextMsg);
-            activeQuest.setAndEvalArtefactReserved(nextMsg);
-            if ( activeQuest.setAndEvalArtefactActivated(nextMsg) ) {
-                imageWrapper.setBackground(swordBmp);
-           }
+            try {
+                String nextMsg = iterator.next();
+                sb.append(nextMsg);
+                activeQuest.setAndEvalArtefactReserved(nextMsg);
+                if (activeQuest.setAndEvalArtefactActivated(nextMsg)) {
+                    imageWrapper.setBackground(swordBmp);
+                }
+            }catch(Exception ex) {
+                ex.printStackTrace();
+                break;
+            }
         }
 
         status.setText("DEBUG : FoundAndReserved: " + activeQuest.isArtefactReserved() + " ActivatedQuestFullfilled: " + activeQuest.isArtefactActivated() +  " size: "+ this.uniqueRFidPresentList.size() + " #### " + sb.toString());
